@@ -6,7 +6,6 @@ function elencoPizze(){
     .then((result) => {
         console.log(result.data)
         result.data.forEach(pizze => {
-            console.log(pizze);
             document.querySelector("#pizze").innerHTML += `
             <tr >
                 <td > <a href="./detail.html?id=${pizze.id}">${pizze.name}</a></td>
