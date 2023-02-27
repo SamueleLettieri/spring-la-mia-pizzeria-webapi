@@ -5,6 +5,7 @@ function elencoPizze(){
     axios.get("http://localhost:8080/api/pizze")
     .then((result) => {
         console.log(result.data)
+        document.querySelector("#pizze").innerHTML += '';
         result.data.forEach(pizze => {
             document.querySelector("#pizze").innerHTML += `
             <tr >
@@ -16,7 +17,7 @@ function elencoPizze(){
                 <td>${pizze.price}€</td>
                 <td >
                     <a href=""  class="btn btn-primary">Modifica</a>
-                    <a href="" class="btn btn-danger">Elimina</a>
+                    <a onclick="deletePizza(${pizze.id})" class="btn btn-danger">Elimina</a>
                 </td>
             </tr>
             `;
@@ -29,5 +30,17 @@ function elencoPizze(){
 
 
 
+function deletePizza(pizzaId) {
+    const risposta = confirm("sei sicuro?");
 
+    if(risposta){
+        axios.delete('http://localhost:8080/api/pizze/delete/' + pizzaId)
+        .then((result) => {
+            pizzaList();
+        }).catch((error) => {
+            console.warn(error);
+        })
+    }
+        
+}
 
